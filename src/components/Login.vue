@@ -8,7 +8,7 @@
         </el-form-item>
         <!--密码-->
         <el-form-item prop="password" >
-          <el-input prefix-icon="el-icon-s-promotion" v-model="form.password" type="password"></el-input>
+          <el-input prefix-icon="el-icon-lock" v-model="form.password" type="password"></el-input>
         </el-form-item>
         <!--按钮区域-->
         <el-form-item class="buttons">

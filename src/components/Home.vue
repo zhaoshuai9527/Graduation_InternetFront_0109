@@ -10,40 +10,70 @@
     </el-header>
     <el-container>
       <!-- 侧边栏   -->
-      <el-aside width="200px">
+      <el-aside :width="isCollapse ? '64px' : '200px'">
+        <div class="toggle-button" @click="toggleCollapse">|||</div>
         <!-- 侧边栏菜单区   -->
-        <el-menu background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+        <el-menu background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :collapse="isCollapse" :collapse-transition="false">
           <!-- 一级菜单   -->
-          <el-submenu index="1">
+          <el-menu-item index="1">
+            <i class="el-icon-location"></i>
+            <span slot="title">首页</span>
+          </el-menu-item>
+          <el-submenu index="2">
             <!-- 一级菜单模板区   -->
             <template slot="title">
               <!-- 图标   -->
-              <i class="el-icon-location"></i>
+              <i class="el-icon-menu"></i>
               <!-- 文本   -->
-              <span>导航一</span>
+              <span>教师管理</span>
             </template>
-            <!-- 二级菜单   -->
-            <el-menu-item index="1-4-1">
+            <!-- 二级菜单模板区   -->
+            <el-menu-item index="2-1">
               <template slot="title">
-                <!-- 图标   -->
-                <i class="el-icon-location"></i>
-                <!-- 文本   -->
-                <span>导航一</span>
+                <i class="el-icon-menu"></i>
+                <span>教师发题</span>
               </template>
             </el-menu-item>
           </el-submenu>
-          <el-menu-item index="2">
-            <i class="el-icon-menu"></i>
-            <span slot="title">导航二</span>
-          </el-menu-item>
-          <el-menu-item index="3" disabled>
-            <i class="el-icon-document"></i>
-            <span slot="title">导航三</span>
-          </el-menu-item>
-          <el-menu-item index="4">
-            <i class="el-icon-setting"></i>
-            <span slot="title">导航四</span>
-          </el-menu-item>
+          <el-submenu index="3">
+            <!-- 一级菜单模板区   -->
+            <template slot="title">
+              <!-- 图标   -->
+              <i class="el-icon-menu"></i>
+              <!-- 文本   -->
+              <span>学生管理</span>
+            </template>
+            <!-- 二级菜单模板区   -->
+            <el-menu-item index="3-1">
+              <template slot="title">
+                <i class="el-icon-menu"></i>
+                <span>学生选题</span>
+              </template>
+            </el-menu-item>
+          </el-submenu>
+          <el-submenu index="4">
+            <!-- 一级菜单模板区   -->
+            <template slot="title">
+              <!-- 图标   -->
+              <i class="el-icon-menu"></i>
+              <!-- 文本   -->
+              <span>系统管理</span>
+            </template>
+            <!-- 二级菜单模板区   -->
+            <el-menu-item index="4-1">
+              <template slot="title">
+                <i class="el-icon-menu"></i>
+                <span>角色管理</span>
+              </template>
+            </el-menu-item>
+            <!-- 二级菜单模板区   -->
+            <el-menu-item index="4-2">
+              <template slot="title">
+                <i class="el-icon-menu"></i>
+                <span>权限管理</span>
+              </template>
+            </el-menu-item>
+          </el-submenu>
         </el-menu>
       </el-aside>
       <!-- 主区域   -->
@@ -53,10 +83,19 @@
 </template>
 <script>
 export default {
+  data () {
+    return {
+      // 是否折叠
+      isCollapse: false
+    }
+  },
   methods: {
     logout () {
       window.sessionStorage.clear()
       this.$router.push('/login')
+    },
+    toggleCollapse () {
+      this.isCollapse = !(this.isCollapse)
     }
   }
 }
@@ -86,5 +125,14 @@ export default {
 }
 .el-main {
   background-color: aliceblue;
+}
+.toggle-button {
+  background-color: #545c64;
+  font-size: 10px;
+  line-height: 24px;
+  color: #ffffff;
+  text-align: center;
+  letter-spacing: 0.3em;
+  cursor: pointer;
 }
 </style>
