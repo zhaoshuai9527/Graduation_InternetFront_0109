@@ -3,11 +3,8 @@
     <div class="register_box">
       <el-form :model="form" :rules="rules" ref="registerFormRef" class="register_form" label-width="80px" size="mini">
         <!--注册身份-->
-        <el-form-item label="注册身份" prop="region">
-          <el-select v-model="form.region" placeholder="请选择注册身份">
-            <el-option label="教师" value="teacher"></el-option>
-            <el-option label="学生" value="student"></el-option>
-          </el-select>
+        <el-form-item label="注册身份" prop="account">
+          <el-input prefix-icon="el-icon-s-custom" v-model="form.account"></el-input>
         </el-form-item>
         <!--用户名-->
         <el-form-item label="账号" prop="account">
@@ -31,7 +28,7 @@
         </el-form-item>
         <!--籍贯-->
         <el-form-item label="籍贯" prop="native" >
-          <el-input prefix-icon="el-icon-s-promotion" v-model="form.native"></el-input>
+          <el-input v-model="form.native"></el-input>
         </el-form-item>
         <!--出生年月-->
         <el-form-item label="出生年月" prop="birth" >
@@ -50,7 +47,7 @@
 <script>
 export default {
   data () {
-    var validatePass = (rule, value, callback) => {
+    const validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'))
       } else {
@@ -60,7 +57,7 @@ export default {
         callback()
       }
     }
-    var validatePass2 = (rule, value, callback) => {
+    const validatePass2 = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请再次输入密码'))
       } else if (value !== this.form.password) {

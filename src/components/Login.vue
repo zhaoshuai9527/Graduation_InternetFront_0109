@@ -20,7 +20,6 @@
     </div>
   </div>
 </template>
-import * as qryApi from '../api/login.js'
 <script>
 export default {
   data () {
@@ -33,7 +32,7 @@ export default {
       // 定义表单校验规则
       rules: {
         account: [
-          { required: true, message: '请输入学号', trigger: 'blur' }
+          { required: true, message: '请输入账号', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },

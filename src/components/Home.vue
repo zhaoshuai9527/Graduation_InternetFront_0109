@@ -13,9 +13,11 @@
       <el-aside :width="isCollapse ? '64px' : '200px'">
         <div class="toggle-button" @click="toggleCollapse">|||</div>
         <!-- 侧边栏菜单区   -->
-        <el-menu background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :collapse="isCollapse" :collapse-transition="false">
+        <el-menu background-color="#545c64" text-color="#fff" active-text-color="#ffd04b"
+                 :collapse="isCollapse" :collapse-transition="false" :router="true"
+                 :default-active="index">
           <!-- 一级菜单   -->
-          <el-menu-item index="1">
+          <el-menu-item index='/home'>
             <i class="el-icon-location"></i>
             <span slot="title">首页</span>
           </el-menu-item>
@@ -28,10 +30,16 @@
               <span>教师管理</span>
             </template>
             <!-- 二级菜单模板区   -->
-            <el-menu-item index="2-1">
+            <el-menu-item index='/publishTopic'>
               <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>教师发题</span>
+              </template>
+            </el-menu-item>
+            <el-menu-item index='/teacherSelectStudent'>
+              <template slot="title">
+                <i class="el-icon-menu"></i>
+                <span>教师反选</span>
               </template>
             </el-menu-item>
           </el-submenu>
@@ -44,7 +52,7 @@
               <span>学生管理</span>
             </template>
             <!-- 二级菜单模板区   -->
-            <el-menu-item index="3-1">
+            <el-menu-item index='/studentSelectTopic'>
               <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>学生选题</span>
@@ -57,17 +65,33 @@
               <!-- 图标   -->
               <i class="el-icon-menu"></i>
               <!-- 文本   -->
+              <span>用户管理</span>
+            </template>
+            <!-- 二级菜单模板区   -->
+            <el-menu-item index='/user' @click="saveActivePath('/user')">
+              <template slot="title">
+                <i class="el-icon-menu"></i>
+                <span>用户列表</span>
+              </template>
+            </el-menu-item>
+          </el-submenu>
+          <el-submenu index="5">
+            <!-- 一级菜单模板区   -->
+            <template slot="title">
+              <!-- 图标   -->
+              <i class="el-icon-menu"></i>
+              <!-- 文本   -->
               <span>系统管理</span>
             </template>
             <!-- 二级菜单模板区   -->
-            <el-menu-item index="4-1">
+            <el-menu-item index='/role'>
               <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>角色管理</span>
               </template>
             </el-menu-item>
             <!-- 二级菜单模板区   -->
-            <el-menu-item index="4-2">
+            <el-menu-item index='/power'>
               <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>权限管理</span>
@@ -77,7 +101,10 @@
         </el-menu>
       </el-aside>
       <!-- 主区域   -->
-      <el-main>Main</el-main>
+      <el-main>
+      <!--路由占位符 -->
+      <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -86,8 +113,13 @@ export default {
   data () {
     return {
       // 是否折叠
-      isCollapse: false
+      isCollapse: false,
+      // 被激活的链接地址
+      activePath: ''
     }
+  },
+  created() {
+    this.activePath = window.sessionStorage.getItem('activePath')
   },
   methods: {
     logout () {
@@ -96,6 +128,10 @@ export default {
     },
     toggleCollapse () {
       this.isCollapse = !(this.isCollapse)
+    },
+    saveActivePath (activePath) {
+      window.sessionStorage.setItem('activePath', activePath)
+      this.activePath = activePath
     }
   }
 }
