@@ -15,6 +15,9 @@
           <el-button type="primary" @click="login">登录</el-button>
           <el-button type="info" @click="reset">重置</el-button>
         </el-form-item>
+<!--        <router-link to="./components/Register">-->
+<!--          <button class="btn btn-default colorDe">继续</button>-->
+<!--        </router-link>-->
         <button @click="register">没有账号？点我</button>
       </el-form>
     </div>
@@ -47,6 +50,7 @@ export default {
       this.form = {}
     },
     login () {
+      window.sessionStorage.clear()
       console.log(this.form.account)
       console.log(this.form.password)
       this.$refs.loginFormRef.validate((valid) => {
@@ -54,16 +58,19 @@ export default {
           account: this.form.account,
           password: this.form.password
         })
-          .then(function (response) {
+          .then(response => {
             console.log(response)
-            if (response.data.code === '2000' || response.data.code === '10000') {
+            if (response.data.code === '1' || response.data.code === '10000') {
               console.log('success')
-              window.sessionStorage.setItem('token', response.data.token)
+              console.log('放入之前' + window.sessionStorage.getItem('token'))
+              console.log('tokenId: ' + response.data.tokenId)
+              window.sessionStorage.setItem('token', response.data.tokenId)
+              console.log('放入之后' + window.sessionStorage.getItem('token'))
               this.$router.push('/home')
             } else {
               console.log('error')
             }
-          }.bind(this))
+          })
           .catch(function (error) {
             // this.$message.success('登录失败')
             console.log(error)
@@ -71,7 +78,7 @@ export default {
       })
     },
     register () {
-      this.$router.push('/register')
+      this.$router.push(`/register`)
     }
   }
 }

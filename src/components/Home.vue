@@ -15,7 +15,8 @@
         <!-- 侧边栏菜单区   -->
         <el-menu background-color="#545c64" text-color="#fff" active-text-color="#ffd04b"
                  :collapse="isCollapse" :collapse-transition="false" :router="true"
-                 :default-active="index">
+                 >
+          <!--:default-active="index"-->
           <!-- 一级菜单   -->
           <el-menu-item index='/home'>
             <i class="el-icon-location"></i>
@@ -113,26 +114,24 @@ export default {
   data () {
     return {
       // 是否折叠
-      isCollapse: false,
+      isCollapse: false
       // 被激活的链接地址
-      activePath: ''
+      // activePath: ''
     }
-  },
-  created() {
-    this.activePath = window.sessionStorage.getItem('activePath')
   },
   methods: {
     logout () {
       window.sessionStorage.clear()
+      window.localStorage.clear()
       this.$router.push('/login')
     },
     toggleCollapse () {
       this.isCollapse = !(this.isCollapse)
-    },
-    saveActivePath (activePath) {
-      window.sessionStorage.setItem('activePath', activePath)
-      this.activePath = activePath
     }
+    // saveActivePath (activePath) {
+    //   window.sessionStorage.setItem('activePath', activePath)
+    //   this.activePath = activePath
+    // }
   }
 }
 </script>

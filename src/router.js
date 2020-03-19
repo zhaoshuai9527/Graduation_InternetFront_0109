@@ -39,9 +39,12 @@ router.beforeEach((to, from, next) => {
   // from 从哪个路径跳转而来
   // next（）放行   next（'/login'）强制跳转
   if (to.path === '/login') return next()
+  if (to.path === '/register') return next()
   // 获取token
-  const tokenStr = window.sessionStorage.getItem('token')
-  if (!tokenStr) return next('/login')
+  // const tokenStr = window.sessionStorage.getItem('token')
+  // console.log('赵帅')
+  // if (!tokenStr) return next('/login')
+  // console.log('帅')
   next()
 })
 
